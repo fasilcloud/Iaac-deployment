@@ -144,33 +144,7 @@ module "eks_blueprints_addons" {
     ]
   }
 
-  # kube-prometheus-stack
-  kube_prometheus_stack = {
-    chart         = "kube-prometheus-stack"
-    chart_version = "77.0.0"
-    repository    = "https://prometheus-community.github.io/helm-charts"
-    namespace     = "monitoring"
-    wait          = true
-    wait_for_jobs = true
-
-    values = [
-      yamlencode({
-        prometheus = {
-          service = {
-            type = "LoadBalancer"
-            port = 9090
-          }
-        }
-
-        grafana = {
-          adminPassword = "admin"
-        }
-      })
-    ]
-  }
-}
-
- 
+  
   tags = {
     "kubernetes.io/cluster/${local.name}-eks" = "shared"
   }
