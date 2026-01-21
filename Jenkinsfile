@@ -10,9 +10,9 @@ pipeline {
 
         stage('Terraform Security Scan') {
             steps {
-                dir('terraform') {
+                dir('Iaac/env/dev') {
                     sh '''
-                       tfsec --exit-on-violation ."
+                       tfsec --exit-on-violation .
                     '''
                 }
             }
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                dir('terraform') {
+                dir('Iaac/env/dev') {
                     sh 'terraform init'
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                dir('terraform') {
+                dir('Iaac/env/dev') {
                     sh 'terraform plan -out=tfplan'
                 }
             }
@@ -56,7 +56,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                dir('terraform') {
+                dir('Iaac/env/dev') {
                     sh 'terraform apply -auto-approve tfplan'
                 }
             }
